@@ -3,32 +3,32 @@ name: Node.js CI
 on: [push]
 
 jobs:
-  container-test-job:
+  build:
     runs-on: ubuntu-latest
-    container:
-      image: node:20
-      env:
-        NODE_ENV: development
-      ports:
-        - 80
-      volumes:
-        - my_docker_volume:/volume_mount
-      options: --cpus 1
-
     steps:
-      - name: Check for dockerenv file
-        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
-
-      - name: Check Out Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       
-      - name: Setup Node.js
+      - name: Use Node.js v20.x
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+
+       # Speed up subsequent runs with caching
+      - name: Cache node modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       
       - name: Install Dependencies
         run: npm install
-      
+
       - name: Run Tests
         run: npm test
