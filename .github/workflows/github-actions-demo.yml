@@ -16,4 +16,4 @@ jobs:
           node-version: '20.x'
 
       - name: Run Tests
-        run: "yarn run test"
+        run: "sudo yarn run test"
