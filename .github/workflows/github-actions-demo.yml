@@ -15,7 +15,8 @@ jobs:
           node-version: '20.x'
 
       - name: Run Tests
-        with: 
-          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
         uses: willcaul/jest-github-action@v4
-        
+        env:
+          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
+        with:
+          test-command: "npm test"
