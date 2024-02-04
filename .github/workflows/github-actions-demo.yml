@@ -29,8 +29,8 @@ jobs:
       
       - name: Install Dependencies
         run: npm install
-
-      - name: Run Tests
-        run: npm run test
-
-            
+      
+      - name: Run Jest
+        uses: stefanoeb/jest-action@1.0.3
+        with:
+          jestArgs: calculator.test.js
