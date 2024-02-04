@@ -7,7 +7,7 @@ jobs:
     
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
     steps:
       - uses: actions/checkout@v4
       
@@ -18,3 +18,5 @@ jobs:
 
       - name: Run Tests
         uses: willcaul/jest-github-action@v4
+        with: 
+          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
