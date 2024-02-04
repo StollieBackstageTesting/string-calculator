@@ -15,9 +15,8 @@ jobs:
         with:
           always-auth: true
           node-version: '20.x'
-      - name: Grant permissions for Jest
-        run: chmod +x jest
-      
       - run: npm ci
       - run: npm run build --if-present
+      - name: Grant permissions for Jest
+        run: chmod +x jest
       - run: npm test
