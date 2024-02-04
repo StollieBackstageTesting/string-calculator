@@ -6,8 +6,7 @@ jobs:
   build:
     
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    environment: development
     steps:
       - uses: actions/checkout@v4
       
@@ -18,3 +17,7 @@ jobs:
 
       - name: Run Tests
         uses: willcaul/jest-github-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
+        with:
+          test-command: "yarn test"
